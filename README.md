@@ -20,3 +20,17 @@
 <br/>
 
 *****
+
+1. 환경 설정
+* .gitignore에 java관련(class, package 등), application.properties, application.yaml 등록
+* MySQL 관련 작업
+  * 버전 9.1.0 고정
+  * MySQL은 Docker Container를 이용하기 위하여 컨테이너 구동 후 데이터베이스 권한 작업 진행
+    * 추후 새로운 계정 만들어서 계정 권한 세부적으로 조정 예정
+  
+      `grant all privileges on *.* to 'root'@'%';`
+    * MySQL 데이터베이스 테스트 연결 성공
+    
+    <br/>
+
+      ![database_test_connection](https://github.com/user-attachments/assets/125ca975-8b3d-49db-9c82-c9ec07020878)
