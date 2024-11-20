@@ -34,3 +34,59 @@
     <br/>
 
       ![database_test_connection](https://github.com/user-attachments/assets/125ca975-8b3d-49db-9c82-c9ec07020878)
+
+*****
+
+2. 상품 엔티티 설계
+
+* Item 엔티티는 다음과 같이 설계 됨
+```mermaid
+---
+title: Item Entity
+---
+erDiagram
+    Item {
+        Long id PK "상품 코드"
+        String itemNm "상품 명"
+        int price "가격"
+        int stockNumber "재고 수량"
+        String itemDetail "상품 상세 설명"
+        ItemSellStatus itemSellStatus "상품 판매 상태"
+        LocalDateTime regTime "등록 시간"
+        LocalDateTime updateTime "수정 시간"
+    }
+```
+
+* 실행했을 때, 테이블이 생성되지 않는 현상 발생
+  * 처음에는 JPA 관련 설정을 하지 않은 줄 알고 구글링을 진행(~~삽질~~)
+  * 한참을 뒤져 본 결과, application.yml 내의 ddl-auto 위치 설정이 잘 못 되어 있었다.
+    * 수정 전
+      ```yaml
+      # ...
+      jpa:
+        properties:
+          hibernate:
+            # Print Console Processing Query
+            show_sql: true
+            # Formatting Printed Query
+            format_sql: true
+            # Strategy Database initialization
+            ddl-auto: create
+      # ...
+      ```
+    * 수정 후
+      ```yaml
+      # ...
+      jpa:
+        hibernate:
+          # Strategy Database initialization
+          ddl-auto: create
+        properties:
+          hibernate:
+          # Print Console Processing Query
+          show_sql: true
+          # Formatting Printed Query
+          format_sql: true
+      # ...
+      ```
+    설정시의 위치를 잘 살펴보자!
